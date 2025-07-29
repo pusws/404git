@@ -738,6 +738,9 @@ body {
   padding: 10px;
   border-radius: 0;
   margin-bottom: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  white-space: pre-wrap;
 }
 
 .copy-btn {
@@ -772,11 +775,13 @@ body {
 
 .note-section {
   grid-column: span 4;
-  grid-row: span 1;
+  grid-row: span 2;
   background-color: rgba(255, 255, 255, 0.1);
   padding: 15px;
   font-size: 12px;
   line-height: 1.4;
+  overflow-y: auto;
+  max-height: 200px;
 }
 
 @keyframes slide {
@@ -811,7 +816,7 @@ function showModal(title, content) {
   modalContent.innerHTML = \`
     <div class="config-content">
       <div class="config-title">配置信息</div>
-      <div class="config-text">\${content}</div>
+      <div class="config-text">\${content.replace(/\\\\n/g, '<br>')}</div>
       <button class="copy-btn" onclick="copyToClipboard('\${content.replace(/'/g, "\\\\'")}'); return false;">复制配置</button>
     </div>
   \`;
