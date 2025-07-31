@@ -570,59 +570,77 @@ function get\u0076\u006c\u0065\u0073\u0073Config(userID, hostName) {
 	
   const noteshow = note.replace(/\n/g, '<br>');
   const displayHtml = `
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    :root{
-      --blue:#0078D7; --green:#107C10; --orange:#D83B01; --purple:#5C2D91;
-      --magenta:#B4009E; --teal:#008272; --bg:#0F0F0F; --tile:#1A1A1A; --white:#FFFFFF;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Noto Sans","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;color:var(--white)}
-    .app{padding:28px}
-    .title{font-size:28px;letter-spacing:.5px;margin:0 0 16px 0;font-weight:600}
-    .subtitle{opacity:.8;margin:0 0 28px 0;font-size:14px}
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:120px;gap:12px}
-    .tile{display:flex;flex-direction:column;justify-content:space-between;padding:16px;border:none;outline:none;color:#fff;text-decoration:none}
-    .tile.flat{box-shadow:none;border-radius:2px}
-    .tile .icon{width:28px;height:28px;fill:#fff;opacity:.95}
-    .tile h3{margin:8px 0 0 0;font-size:18px;font-weight:700}
-    .tile p{margin:2px 0 0 0;font-size:12px;opacity:.9}
-    .span-3{grid-column:span 3}
-    .span-4{grid-column:span 4}
-    .span-6{grid-column:span 6}
-    .span-8{grid-column:span 8}
-    .span-12{grid-column:span 12}
-    .live{font-size:28px;font-weight:800;align-self:flex-end}
-    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
-    .note{font-size:12px;line-height:1.6}
-    .btn{background:rgba(255,255,255,.16);color:#fff;border:0;padding:6px 10px;border-radius:2px;font-size:12px;cursor:pointer}
-    .btn:active{transform:scale(.98)}
-    @media(max-width:960px){
-      .grid{grid-template-columns:repeat(6,1fr)}
-      .span-8{grid-column:span 6}
-      .span-6{grid-column:span 6}
-      .span-4{grid-column:span 6}
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      :root{
+        --blue:#0078D7; --green:#107C10; --orange:#D83B01; --purple:#5C2D91;
+        --magenta:#B4009E; --teal:#008272; --bg:#0F0F0F; --tile:#1A1A1A; --white:#FFFFFF;
+        --tile2:#151515; --muted:#C8C8C8;
+      }
+      *{box-sizing:border-box}
+      html,body{margin:0;padding:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Noto Sans","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;color:var(--white)}
+      .app{padding:28px}
+      .title{font-size:28px;letter-spacing:.5px;margin:0 0 16px 0;font-weight:600}
+      .subtitle{opacity:.8;margin:0 0 28px 0;font-size:14px}
+      .grid{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:120px;gap:12px}
+      .tile{display:flex;flex-direction:column;justify-content:space-between;padding:16px;border:none;outline:none;color:#fff;text-decoration:none}
+      .tile.flat{box-shadow:none;border-radius:8px}
+      .tile .icon{width:28px;height:28px;fill:#fff;opacity:.95}
+      .tile h3{margin:8px 0 6px 0;font-size:18px;font-weight:700}
+      .tile p{margin:2px 0 0 0;font-size:12px;opacity:.9}
       .span-3{grid-column:span 3}
-    }
-  </style>
-  <script>
-    function copyToClipboard(text) {
-      const input=document.createElement('textarea');
-      input.style.position='fixed';input.style.opacity=0;input.value=text;
-      document.body.appendChild(input);input.select();document.execCommand('copy');
-      document.body.removeChild(input);
-      const toast=document.createElement('div');
-      toast.textContent='已复制';
-      toast.style.position='fixed';toast.style.bottom='20px';toast.style.left='50%';
-      toast.style.transform='translateX(-50%)';toast.style.background='#222';toast.style.color='#fff';
-      toast.style.padding='8px 12px';toast.style.borderRadius='2px';toast.style.fontSize='12px';
-      toast.style.zIndex='9999';document.body.appendChild(toast);setTimeout(()=>toast.remove(),900);
-    }
-  </script>
-</head>
-`;
+      .span-4{grid-column:span 4}
+      .span-6{grid-column:span 6}
+      .span-8{grid-column:span 8}
+      .span-12{grid-column:span 12}
+      .live{font-size:28px;font-weight:800;align-self:flex-end}
+      .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+      .note{font-size:12px;line-height:1.6}
+      .limited-width{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:.85}
+      .tags{display:flex;gap:6px;flex-wrap:wrap;margin:2px 0 6px 0}
+      .tag{display:inline-flex;align-items:center;padding:2px 6px;border-radius:999px;background:rgba(255,255,255,.16);font-size:11px;color:#fff}
+      .btn{background:rgba(255,255,255,.16);color:#fff;border:0;padding:6px 10px;border-radius:6px;font-size:12px;cursor:pointer;transition:background .15s ease,transform .05s ease}
+      .btn:hover{background:rgba(255,255,255,.22)}
+      .btn:active{transform:scale(.98)}
+      @media(max-width:960px){
+        .grid{grid-template-columns:repeat(6,1fr)}
+        .span-8{grid-column:span 6}
+        .span-6{grid-column:span 6}
+        .span-4{grid-column:span 6}
+        .span-3{grid-column:span 3}
+      }
+      @keyframes fadeOutUp {
+        0% {opacity:1; transform:translate(-50%,0)}
+        100% {opacity:0; transform:translate(-50%,-8px)}
+      }
+    </style>
+    <script>
+      function copyToClipboard(text) {
+        const input=document.createElement('textarea');
+        input.style.position='fixed';input.style.opacity=0;input.value=text;
+        document.body.appendChild(input);input.select();document.execCommand('copy');
+        document.body.removeChild(input);
+        const toast=document.createElement('div');
+        toast.textContent='已复制';
+        toast.style.position='fixed';
+        toast.style.bottom='20px';
+        toast.style.left='50%';
+        toast.style.transform='translateX(-50%)';
+        toast.style.background='#222';
+        toast.style.color='#fff';
+        toast.style.padding='8px 12px';
+        toast.style.borderRadius='8px';
+        toast.style.fontSize='12px';
+        toast.style.zIndex='9999';
+        toast.style.animation='fadeOutUp 900ms ease forwards';
+        document.body.appendChild(toast);
+        setTimeout(()=>toast.remove(),900);
+      }
+    </script>
+  </head>
+  `;
 if (hostName.includes("workers.dev")) {
 return `
 ${displayHtml}
@@ -634,42 +652,65 @@ ${displayHtml}
       <a class="tile flat span-4" style="background:var(--orange)">
         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3z"/><path d="M5 8h10v2H5zm0 4h14v2H5z"/></svg>
         <h3>非TLS 单节点</h3>
-        <p class="mono limited-width">${w\u0076\u006c\u0065\u0073\u0073ws}</p>
+        <div class="tags">
+          <span class="tag">WS</span>
+          <span class="tag">无 TLS</span>
+        </div>
+        <p class="mono limited-width">${hostName} · ws · :8880 · /?ed=2560</p>
         <button class="btn" onclick="copyToClipboard('${w\u0076\u006c\u0065\u0073\u0073ws}')">复制链接</button>
       </a>
 
       <a class="tile flat span-4" style="background:var(--blue)">
         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 5v8l-9 5-9-5V8z"/><path d="M12 7l5.5 3-5.5 3L6.5 10 12 7z"/></svg>
         <h3>TLS 单节点</h3>
-        <p class="mono limited-width">${p\u0076\u006c\u0065\u0073\u0073wstls}</p>
+        <div class="tags">
+          <span class="tag">WS</span>
+          <span class="tag">TLS</span>
+          <span class="tag">SNI</span>
+        </div>
+        <p class="mono limited-width">${hostName} · wss · :8443 · /?ed=2560</p>
         <button class="btn" onclick="copyToClipboard('${p\u0076\u006c\u0065\u0073\u0073wstls}')">复制链接</button>
       </a>
 
       <a class="tile flat span-4" style="background:var(--purple)">
         <svg class="icon" viewBox="0 0 24 24"><path d="M4 4h16v4H4zM4 10h16v4H4zM4 16h16v4H4z"/></svg>
         <h3>聚合分享</h3>
-        <p>可直接导入客户端（13端口：含TLS/非TLS）</p>
+        <div class="tags">
+          <span class="tag">13 端口</span>
+          <span class="tag">含 TLS / 非TLS</span>
+        </div>
+        <p>可直接导入客户端</p>
         <button class="btn" onclick="copyToClipboard('${wk\u0076\u006c\u0065\u0073\u0073share}')">复制分享(Base64)</button>
       </a>
 
       <a class="tile flat span-4" style="background:var(--teal)">
         <svg class="icon" viewBox="0 0 24 24"><path d="M10 4h4v16h-4zM4 10h16v4H4z"/></svg>
         <h3>聚合订阅</h3>
-        <p class="mono limited-width">${ty}</p>
+        <div class="tags">
+          <span class="tag">统一</span>
+          <span class="tag">混合(HTTP+HTTPS)</span>
+        </div>
+        <p class="mono limited-width">${hostName}/${userID}/ty</p>
         <button class="btn" onclick="copyToClipboard('${ty}')">复制订阅链接</button>
       </a>
 
       <a class="tile flat span-4" style="background:var(--magenta)">
         <svg class="icon" viewBox="0 0 24 24"><path d="M3 5h18v14H3z"/><path d="M6 8h6v2H6zM6 12h12v2H6z"/></svg>
         <h3>Clash Meta 订阅</h3>
-        <p class="mono limited-width">${cl}</p>
+        <div class="tags">
+          <span class="tag">Clash Meta</span>
+        </div>
+        <p class="mono limited-width">${hostName}/${userID}/cl</p>
         <button class="btn" onclick="copyToClipboard('${cl}')">复制订阅链接</button>
       </a>
 
       <a class="tile flat span-4" style="background:var(--green)">
         <svg class="icon" viewBox="0 0 24 24"><path d="M12 2l9 4v6c0 5-9 10-9 10S3 17 3 12V6l9-4z"/></svg>
         <h3>Sing-box 订阅</h3>
-        <p class="mono limited-width">${sb}</p>
+        <div class="tags">
+          <span class="tag">Sing-box</span>
+        </div>
+        <p class="mono limited-width">${hostName}/${userID}/sb</p>
         <button class="btn" onclick="copyToClipboard('${sb}')">复制订阅链接</button>
       </a>
 
@@ -705,13 +746,22 @@ ${displayHtml}
       <a class="tile flat span-4" style="background:var(--blue)">
         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 5v8l-9 5-9-5V8z"/><path d="M12 7l5.5 3-5.5 3L6.5 10 12 7z"/></svg>
         <h3>TLS 单节点</h3>
-        <p class="mono limited-width">${p\u0076\u006c\u0065\u0073\u0073wstls}</p>
+        <div class="tags">
+          <span class="tag">WS</span>
+          <span class="tag">TLS</span>
+          <span class="tag">SNI</span>
+        </div>
+        <p class="mono limited-width">${hostName} · wss · :8443 · /?ed=2560</p>
         <button class="btn" onclick="copyToClipboard('${p\u0076\u006c\u0065\u0073\u0073wstls}')">复制链接</button>
       </a>
 
       <a class="tile flat span-4" style="background:var(--purple)">
         <svg class="icon" viewBox="0 0 24 24"><path d="M4 4h16v4H4zM4 10h16v4H4zM4 16h16v4H4z"/></svg>
         <h3>聚合分享 (TLS 6端口)</h3>
+        <div class="tags">
+          <span class="tag">6 端口</span>
+          <span class="tag">TLS</span>
+        </div>
         <p>可直接导入客户端</p>
         <button class="btn" onclick="copyToClipboard('${pg\u0076\u006c\u0065\u0073\u0073share}')">复制分享(Base64)</button>
       </a>
@@ -719,21 +769,33 @@ ${displayHtml}
       <a class="tile flat span-4" style="background:var(--teal)">
         <svg class="icon" viewBox="0 0 24 24"><path d="M10 4h4v16h-4zM4 10h16v4H4z"/></svg>
         <h3>聚合订阅</h3>
-        <p class="mono limited-width">${pty}</p>
+        <div class="tags">
+          <span class="tag">统一</span>
+          <span class="tag">TLS-only</span>
+        </div>
+        <p class="mono limited-width">${hostName}/${userID}/pty</p>
         <button class="btn" onclick="copyToClipboard('${pty}')">复制订阅链接</button>
       </a>
 
       <a class="tile flat span-4" style="background:var(--magenta)">
         <svg class="icon" viewBox="0 0 24 24"><path d="M3 5h18v14H3z"/><path d="M6 8h6v2H6zM6 12h12v2H6z"/></svg>
         <h3>Clash Meta 订阅</h3>
-        <p class="mono limited-width">${pcl}</p>
+        <div class="tags">
+          <span class="tag">Clash Meta</span>
+          <span class="tag">TLS-only</span>
+        </div>
+        <p class="mono limited-width">${hostName}/${userID}/pcl</p>
         <button class="btn" onclick="copyToClipboard('${pcl}')">复制订阅链接</button>
       </a>
 
       <a class="tile flat span-4" style="background:var(--green)">
         <svg class="icon" viewBox="0 0 24 24"><path d="M12 2l9 4v6c0 5-9 10-9 10S3 17 3 12V6l9-4z"/></svg>
         <h3>Sing-box 订阅</h3>
-        <p class="mono limited-width">${psb}</p>
+        <div class="tags">
+          <span class="tag">Sing-box</span>
+          <span class="tag">TLS-only</span>
+        </div>
+        <p class="mono limited-width">${hostName}/${userID}/psb</p>
         <button class="btn" onclick="copyToClipboard('${psb}')">复制订阅链接</button>
       </a>
 
