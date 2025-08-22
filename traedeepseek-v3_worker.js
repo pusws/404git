@@ -705,7 +705,7 @@ body {
   background: var(--success-color);
 }
 
-.badge-not极ls {
+.badge-notls {
   background: var(--warning-color);
 }
 
@@ -739,7 +739,7 @@ body {
   .card-body {
     padding: 1rem;
   }
-  \极n  .config-value {
+  .config-value {
     font-size: 0.8rem;
   }
 }
@@ -773,6 +773,68 @@ body {
   overflow: auto;
   word-wrap: break-word;
 }
+
+/* 拟物化样式 */
+.neumorphic-card {
+  background: var(--light-bg);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.1), 
+              -8px -8px 16px rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.neumorphic-card:hover {
+  box-shadow: 12px 12px 24px rgba(0, 0, 0, 0.15), 
+              -12px -12px 24px rgba(255, 255, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+.neumorphic-header {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 12px 12px 0 0;
+  margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+  box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.3),
+              inset -2px -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.neumorphic-btn {
+  background: var(--light-bg);
+  border: none;
+  border-radius: 10px;
+  padding: 0.8rem 1.5rem;
+  color: var(--primary-color);
+  font-weight: 600;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1), 
+              -4px -4px 8px rgba(255, 255, 255, 0.5);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.neumorphic-btn:hover {
+  box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.15), 
+              -6px -6px 12px rgba(255, 255, 255, 0.6);
+  transform: translateY(-1px);
+}
+
+.neumorphic-btn:active {
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.1), 
+              inset -2px -2px 4px rgba(255, 255, 255, 0.3);
+  transform: scale(0.98);
+}
+
+.neumorphic-badge {
+  border-radius: 20px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1), 
+              -2px -2px 4px rgba(255, 255, 255, 0.3);
+}
 </style>
 </head>
 <script>
@@ -800,22 +862,22 @@ ${displayHtml}
         <div class="col-md-12">
             <div class="header">
                 <h1><i class="fas fa-cloud"></i> Cloudflare VLESS 代理脚本</h1>
-                <p class="version-badge">版本 V25极.5.27</p>
+                <p class="version-badge">版本 V25.5.27</p>
                 <p>${noteshow}</p>
             </div>
             <br>
             <br>
             <!-- 非TLS节点卡片 -->
-            <div class="card">
-                <div class="card-header">
+            <div class="card neumorphic-card">
+                <div class="card-header neumorphic-header">
                     <i class="fas fa-shield-alt"></i> CF-workers-VLESS+WS 节点 (非TLS)
-                    <span class="badge badge-notls">非加密</span>
+                    <span class="badge badge-notls neumorphic-badge">非加密</span>
                 </div>
                 <div class="card-body">
                     <div class="config-item">
-                        <h6><极i class="fas fa-link"></i> 节点链接</h6>
+                        <h6><i class="fas fa-link"></i> 节点链接</h6>
                         <div class="config-value">${w\u0076\u006c\u0065\u0073\u0073ws}</div>
-                        <button class="btn btn-copy" onclick="copyToClipboard('${w\u0076\u006c\u0065\u0073\u0073ws}')">
+                        <button class="btn btn-copy neumorphic-btn" onclick="copyToClipboard('${w\u0076\u006c\u0065\u0073\u0073ws}')" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'" onmouseleave="this.style.transform='scale(1)'">
                             <i class="fas fa-copy"></i> 复制链接
                         </button>
                     </div>
@@ -839,100 +901,101 @@ ${displayHtml}
 			<hr>
             <br>
             <br>
-            <h3>2：CF-workers-\u0076\u006c\u0065\u0073\u0073+ws+tls节点</h3>
-			<table class="table">
-				<thead>
-					<tr>
-						<th>节点特色：</th>
-						<th>单节点链接如下：</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="limited-width">启用了TLS加密，<br>如果客户端支持分片(Fragment)功能，建议开启，防止域名阻断</td>
-						<td class="limited-width">${p\u0076\u006c\u0065\u0073\u0073wstls}</td>	
-						<td><button class="btn btn-primary" onclick="copyToClipboard('${p\u0076\u006c\u0065\u0073\u0073wstls}')">点击复制链接</button></td>
-					</tr>
-				</tbody>
-			</table>
-            <h5>客户端参数如下：</h5>
-            <ul>
-                <li>客户端地址(address)：自定义的域名 或者 优选域名 或者 优选IP 或者 反代IP</li>
-                <li>端口(port)：6个https端口可任意选择(443、8443、2053、2083、2087、2096)，或反代IP对应端口</li>
-                <li>用户ID(uuid)：${userID}</li>
-                <li>传输协议(network)：ws 或者 websocket</li>
-                <li>伪装域名(host)：${hostName}</li>
-                <li>路径(path)：/?ed=2560</li>
-                <li>传输安全(TLS)：开启</li>
-                <li>跳过证书验证(allowlnsecure)：false</li>
-			</ul>
+            <!-- TLS节点卡片 -->
+            <div class="card neumorphic-card">
+                <div class="card-header neumorphic-header">
+                    <i class="fas fa-lock"></i> CF-workers-VLESS+WS+TLS 节点
+                    <span class="badge badge-success neumorphic-badge">加密传输</span>
+                </div>
+                <div class="card-body">
+                    <div class="config-item">
+                        <h6><i class="fas fa-link"></i> 节点链接</h6>
+                        <div class="config-value">${p\u0076\u006c\u0065\u0073\u0073wstls}</div>
+                        <button class="btn btn-copy neumorphic-btn" onclick="copyToClipboard('${p\u0076\u006c\u0065\u0073\u0073wstls}')" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'" onmouseleave="this.style.transform='scale(1)'">
+                            <i class="fas fa-copy"></i> 复制链接
+                        </button>
+                    </div>
+                    <div class="node-features">
+                        <span class="badge badge-success neumorphic-badge"><i class="fas fa-lock"></i> TLS加密</span>
+                        <span class="badge badge-info neumorphic-badge"><i class="fas fa-puzzle-piece"></i> 支持分片</span>
+                    </div>
+                    <p class="feature-desc"><i class="fas fa-lightbulb"></i> 如果客户端支持分片(Fragment)功能，建议开启，防止域名阻断</p>
+                    <h6><i class="fas fa-cog"></i> 客户端参数</h6>
+                    <div class="config-item">
+                        <strong>地址：</strong>自定义域名/优选域名/优选IP/反代IP<br>
+                        <strong>端口：</strong>443, 8443, 2053, 2083, 2087, 2096<br>
+                        <strong>UUID：</strong>${userID}<br>
+                        <strong>传输协议：</strong>WebSocket<br>
+                        <strong>伪装域名：</strong>${hostName}<br>
+                        <strong>路径：</strong>/?ed=2560<br>
+                        <strong>TLS：</strong>开启<br>
+                        <strong>跳过证书验证：</strong>false
+                    </div>
+                </div>
+            </div>
 			<hr>
 			<hr>
 			<hr>
 			<br>	
 			<br>
-			<h3>3：聚合通用、Clash-meta、Sing-box订阅链接如下：</h3>
-			<hr>
-			<p>注意：<br>1、默认每个订阅链接包含TLS+非TLS共13个端口节点<br>2、当前workers域名作为订阅链接，需通过代理进行订阅更新<br>3、如使用的客户端不支持分片功能，则TLS节点不可用</p>
-			<hr>
+            <!-- 订阅链接卡片区域 -->
+            <div class="card neumorphic-card">
+                <div class="card-header neumorphic-header">
+                    <i class="fas fa-rss"></i> 订阅链接
+                </div>
+                <div class="card-body">
+                    <div class="subscription-notice">
+                        <p><i class="fas fa-exclamation-circle"></i> 注意：</p>
+                        <ul>
+                            <li>默认每个订阅链接包含TLS+非TLS共13个端口节点</li>
+                            <li>当前workers域名作为订阅链接，需通过代理进行订阅更新</li>
+                            <li>如使用的客户端不支持分片功能，则TLS节点不可用</li>
+                        </ul>
+                    </div>
 
-
-			<table class="table">
-					<thead>
-						<tr>
-							<th>聚合通用分享链接 (可直接导入客户端)：</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td><button class="btn btn-primary" onclick="copyToClipboard('${wk\u0076\u006c\u0065\u0073\u0073share}')">点击复制链接</button></td>
-						</tr>
-					</tbody>
-				</table>
+                    <!-- 聚合通用分享链接 -->
+                    <div class="subscription-item">
+                        <h6><i class="fas fa-share-alt"></i> 聚合通用分享链接</h6>
+                        <p class="subscription-desc">可直接导入客户端</p>
+                        <button class="btn btn-subscribe neumorphic-btn" onclick="copyToClipboard('${wk\u0076\u006c\u0065\u0073\u0073share}')" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'" onmouseleave="this.style.transform='scale(1)'">
+                            <i class="fas fa-copy"></i> 复制分享链接
+                        </button>
+                    </div>
 
 
    
-			<table class="table">
-					<thead>
-						<tr>
-							<th>聚合通用订阅链接：</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="limited-width">${ty}</td>	
-							<td><button class="btn btn-primary" onclick="copyToClipboard('${ty}')">点击复制链接</button></td>
-						</tr>
-					</tbody>
-				</table>	
+                    <!-- 聚合通用订阅链接 -->
+                    <div class="subscription-item neumorphic-card">
+                        <div class="neumorphic-header">
+                            <h6><i class="fas fa-link"></i> 聚合通用订阅链接</h6>
+                        </div>
+                        <div class="subscription-value">${ty}</div>
+                        <button class="btn btn-subscribe neumorphic-btn" onclick="copyToClipboard('${ty}')" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'" onmouseleave="this.style.transform='scale(1)'">
+                            <i class="fas fa-copy"></i> 复制订阅链接
+                        </button>
+                    </div>	
 
-				<table class="table">
-						<thead>
-							<tr>
-								<th>Clash-meta订阅链接：</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td class="limited-width">${cl}</td>	
-								<td><button class="btn btn-primary" onclick="copyToClipboard('${cl}')">点击复制链接</button></td>
-							</tr>
-						</tbody>
-					</table>
+				<!-- Clash-meta订阅链接卡片 -->
+				<div class="subscription-item neumorphic-card">
+					<div class="neumorphic-header">
+						<h6><i class="fas fa-rocket"></i> Clash-meta订阅链接</h6>
+					</div>
+					<div class="subscription-value">${cl}</div>
+					<button class="btn btn-subscribe neumorphic-btn" onclick="copyToClipboard('${cl}')" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'" onmouseleave="this.style.transform='scale(1)'">
+						<i class="fas fa-copy"></i> 复制订阅链接
+					</button>
+				</div>
 
-					<table class="table">
-					<thead>
-						<tr>
-							<th>Sing-box订阅链接：</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="limited-width">${sb}</td>	
-							<td><button class="btn btn-primary" onclick="copyToClipboard('${sb}')">点击复制链接</button></td>
-						</tr>
-					</tbody>
-				</table>
+				<!-- Sing-box订阅链接卡片 -->
+				<div class="subscription-item neumorphic-card">
+					<div class="neumorphic-header">
+						<h6><i class="fas fa-box"></i> Sing-box订阅链接</h6>
+					</div>
+					<div class="subscription-value">${sb}</div>
+					<button class="btn btn-subscribe neumorphic-btn" onclick="copyToClipboard('${sb}')" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'" onmouseleave="this.style.transform='scale(1)'">
+						<i class="fas fa-copy"></i> 复制订阅链接
+					</button>
+				</div>
 				<br>
 				<br>
         </div>
@@ -1010,47 +1073,38 @@ ${displayHtml}
 
 
 
-			<table class="table">
-					<thead>
-						<tr>
-							<th>聚合通用订阅链接：</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="limited-width">${pty}</td>	
-							<td><button class="btn btn-primary" onclick="copyToClipboard('${pty}')">点击复制链接</button></td>
-						</tr>
-					</tbody>
-				</table>	
+			<!-- 聚合通用订阅链接 -->
+				<div class="subscription-item neumorphic-card">
+					<div class="neumorphic-header">
+						<h6><i class="fas fa-link"></i> 聚合通用订阅链接</h6>
+					</div>
+					<div class="subscription-value">${pty}</div>
+					<button class="btn btn-subscribe neumorphic-btn" onclick="copyToClipboard('${pty}')" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'" onmouseleave="this.style.transform='scale(1)'">
+						<i class="fas fa-copy"></i> 复制订阅链接
+					</button>
+				</div>	
 
-				<table class="table">
-						<thead>
-							<tr>
-								<th>Clash-meta订阅链接：</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td class="limited-width">${pcl}</td>	
-								<td><button class="btn btn-primary" onclick="copyToClipboard('${pcl}')">点击复制链接</button></td>
-							</tr>
-						</tbody>
-					</table>
+				<!-- Clash-meta订阅链接 -->
+				<div class="subscription-item neumorphic-card">
+					<div class="neumorphic-header">
+						<h6><i class="fas fa-shield-alt"></i> Clash-meta订阅链接</h6>
+					</div>
+					<div class="subscription-value">${pcl}</div>
+					<button class="btn btn-subscribe neumorphic-btn" onclick="copyToClipboard('${pcl}')" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'" onmouseleave="this.style.transform='scale(1)'">
+						<i class="fas fa-copy"></i> 复制订阅链接
+					</button>
+				</div>
 
-					<table class="table">
-					<thead>
-						<tr>
-							<th>Sing-box订阅链接：</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="limited-width">${psb}</td>	
-							<td><button class="btn btn-primary" onclick="copyToClipboard('${psb}')">点击复制链接</button></td>
-						</tr>
-					</tbody>
-				</table>
+					<!-- Sing-box订阅链接 -->
+					<div class="subscription-item neumorphic-card">
+						<div class="neumorphic-header">
+							<h6><i class="fas fa-box"></i> Sing-box订阅链接</h6>
+						</div>
+						<div class="subscription-value">${psb}</div>
+						<button class="btn btn-subscribe neumorphic-btn" onclick="copyToClipboard('${psb}')" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'" onmouseleave="this.style.transform='scale(1)'">
+							<i class="fas fa-copy"></i> 复制订阅链接
+						</button>
+					</div>
 				<br>
 				<br>
         </div>
