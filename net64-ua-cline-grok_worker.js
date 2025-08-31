@@ -1126,6 +1126,25 @@ ${displayHtml}
         <h1>Cloudflare-workers/pages-\u0076\u006c\u0065\u0073\u0073代理脚本 V25.5.27</h1>
     </div>
     <div class="ukraine-content">
+        <!-- 乌克兰支持声明 -->
+        <div class="ukraine-declaration">
+            <div class="declaration-content">
+                <div class="declaration-flag">
+                    🇺🇦
+                </div>
+                <div class="declaration-text">
+                    <h4>🇺🇦 支持乌克兰 - 谴责俄罗斯侵略 🇺🇦</h4>
+                    <p><strong>我们坚定支持乌克兰人民抵抗俄罗斯侵略的正义斗争！</strong></p>
+                    <p>俄罗斯对乌克兰的侵略战争犯下了严重的战争罪行，包括对平民的轰炸、强奸、酷刑和大规模破坏。我们谴责这种野蛮行径，并呼吁立即停止侵略，恢复乌克兰的领土完整和主权。</p>
+                    <p><em>Slava Ukraini! Героям слава! Glory to Ukraine! Glory to the heroes!</em></p>
+                    <hr>
+                    <p><strong>We firmly support the Ukrainian people's just struggle against Russian aggression!</strong></p>
+                    <p>Russia's invasion of Ukraine has committed serious war crimes, including bombing civilians, rape, torture and massive destruction. We condemn these barbaric acts and call for an immediate end to the aggression and the restoration of Ukraine's territorial integrity and sovereignty.</p>
+                    <p><em>Slava Ukraini! Героям слава! Glory to Ukraine! Glory to the heroes!</em></p>
+                </div>
+            </div>
+        </div>
+
         <div class="ukraine-note">
             ${noteshow}
         </div>
